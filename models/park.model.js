@@ -1,17 +1,28 @@
-const { Sequelize } = require("sequelize/types");
-const { sequelize } = require(".");
-
 module.exports = (sequelize, Sequelize) => {
-  const Park = sequelize.define("parks", {
-    park_id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
+  const Park = sequelize.define(
+    "parks",
+    {
+      parkId: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        field: "park_id",
+      },
+      parkName: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "park_name",
+      },
+      parkAddress: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "park_address",
+      },
     },
-    park_name: {
-      type: Sequelize.STRING,
-    },
-    park_address: {
-      type: Sequelize.STRING,
-    },
-  });
+    {
+      tableName: "parks",
+    }
+  );
+  return Park;
 };

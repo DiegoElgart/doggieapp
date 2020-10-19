@@ -1,33 +1,49 @@
-const Joi = require("joi");
 module.exports = (sequelize, Sequelize) => {
-  const User = sequelize.define("users", {
-    user_id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
+  const User = sequelize.define(
+    "users",
+    {
+      userId: {
+        type: Sequelize.INTEGER(11),
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        field: "user_id",
+      },
+      firstName: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "first_name",
+      },
+      lastName: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "last_name",
+      },
+      email: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "email",
+      },
+      password: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        field: "password",
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        field: "createdAt",
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
+        field: "updatedAt",
+      },
     },
-    first_name: {
-      type: Sequelize.STRING,
-    },
-    last_name: {
-      type: Sequelize.STRING,
-    },
-    email: {
-      type: Sequelize.STRING,
-    },
-    password: {
-      type: Sequelize.STRING,
-    },
-  });
+    {
+      tableName: "users",
+    }
+  );
 
-  // TODO validation not working here
-
-  function validateUser(user) {
-    const schema = Joi.object({
-      first_name: Joi.string().min(2).max(255).required(),
-      last_name: Joi.string().min(2).max(255).required(),
-      email: Joi.string().min(6).max(255).required().email(),
-      password: Joi.string().min(6).max(255).required(),
-    });
-  }
   return User;
 };
