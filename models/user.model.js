@@ -11,18 +11,31 @@ module.exports = (sequelize, Sequelize) => {
       },
       firstName: {
         type: Sequelize.STRING(255),
-        allowNull: false,
+
         field: "first_name",
+        validate: {
+          min: 2,
+          max: 255,
+        },
       },
       lastName: {
         type: Sequelize.STRING(255),
-        allowNull: false,
+
         field: "last_name",
+        validate: {
+          min: 2,
+          max: 255,
+        },
       },
       email: {
         type: Sequelize.STRING(255),
         allowNull: false,
         field: "email",
+        validate: {
+          isEmail: true,
+          min: 6,
+          max: 255,
+        },
       },
       password: {
         type: Sequelize.STRING(255),

@@ -1,5 +1,3 @@
-const Joi = require("joi");
-
 module.exports = (sequelize, Sequelize) => {
   const Dog = sequelize.define(
     "dogs",
@@ -8,6 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.INTEGER(11),
         allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
         field: "dog_id",
       },
       dogName: {
@@ -50,17 +49,6 @@ module.exports = (sequelize, Sequelize) => {
       tableName: "dogs",
     }
   );
-
-  // TODO validation not working here
-  function validateDog(dog) {
-    const schema = Joi.object({
-      dog_name: Joi.string().min(2).max(2).required(),
-      sex: Joi.boolean(),
-      age: Joi.number(),
-      weight: Joi.number(),
-      neutered: Joi.boolean(),
-    });
-  }
 
   return Dog;
 };
