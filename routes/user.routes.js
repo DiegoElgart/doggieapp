@@ -1,6 +1,7 @@
 const { authJwt } = require("../middleware");
 const userController = require("../controllers/user.controller");
 const dogController = require("../controllers/dog.controller");
+const dogUserController = require("../controllers/dogUser.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -20,5 +21,10 @@ module.exports = function (app) {
     authJwt.verifyToken,
     dogController.checkIfDogExists,
     dogController.addDog
+  );
+  app.post(
+    "api/user/dog/owner",
+    authJwt.verifyToken,
+    dogUserController.addDogtoUser
   );
 };
