@@ -19,11 +19,10 @@ module.exports = function (app) {
   app.post(
     "/api/user/dog/add",
     authJwt.verifyToken,
-    dogController.checkIfDogExists,
-    dogController.addDog
+    dogController.addDogIfNotExists
   );
   app.post(
-    "api/user/dog/owner",
+    "/api/user/dog/owner",
     authJwt.verifyToken,
     dogUserController.addDogtoUser
   );

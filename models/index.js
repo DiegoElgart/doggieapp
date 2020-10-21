@@ -17,6 +17,7 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.dog = require("../models/dog.model.js")(sequelize, Sequelize);
 db.park = require("../models/park.model.js")(sequelize, Sequelize);
 db.visit = require("../models/visit.models")(sequelize, Sequelize);
+db.userDog = require("../models/user_dog.model")(sequelize, Sequelize);
 
 db.dog.belongsToMany(db.user, {
   through: "user_dog",
@@ -39,4 +40,5 @@ db.user.belongsToMany(db.user, {
   as: "friend",
   foreignKey: "user_id_2",
 });
+
 module.exports = db;

@@ -1,21 +1,19 @@
-/* jshint indent: 1 */
-
-module.exports = function (sequelize, DataTypes) {
-  return sequelize.define(
-    "userDog",
+module.exports = (sequelize, Sequelize) => {
+  const UserDog = sequelize.define(
+    "user_dog",
     {
       createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
+        type: Sequelize.DATE,
+        allowNull: true,
         field: "createdAt",
       },
       updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
+        type: Sequelize.DATE,
+        allowNull: true,
         field: "updatedAt",
       },
       dogPetId: {
-        type: DataTypes.INTEGER(11),
+        type: Sequelize.INTEGER(11),
         allowNull: false,
         primaryKey: true,
         references: {
@@ -25,7 +23,7 @@ module.exports = function (sequelize, DataTypes) {
         field: "dog_pet_id",
       },
       ownerId: {
-        type: DataTypes.INTEGER(11),
+        type: Sequelize.INTEGER(11),
         allowNull: false,
         primaryKey: true,
         references: {
@@ -39,4 +37,5 @@ module.exports = function (sequelize, DataTypes) {
       tableName: "user_dog",
     }
   );
+  return UserDog;
 };

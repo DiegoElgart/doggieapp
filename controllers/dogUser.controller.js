@@ -1,14 +1,13 @@
 const db = require("../models");
-const userDog = db.user_dog;
+const UserDog = db.userDog;
 
 exports.addDogtoUser = (req, res) => {
-  userDog
-    .create({
-      dogPetId: req.body.dogPetId,
-      onwerId: req.body.onwerId,
-    })
+  UserDog.create({
+    dogPetId: req.body.dogPetId,
+    ownerId: req.body.ownerId,
+  })
     .then(() => {
-      res.send({ message: `Dog added to ${onwerId}` });
+      res.send({ message: "Dog added to" });
     })
     .catch(err => {
       res.status(500).send({ message: err.message });

@@ -15,3 +15,13 @@ exports.newVisit = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.allVisits = (req, res) => {
+  Visit.findAll({ where: { parkId: req.body.parkId } })
+    .then(visits => {
+      res.send(visits);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
