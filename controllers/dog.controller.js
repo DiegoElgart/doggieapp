@@ -1,6 +1,6 @@
 const db = require("../models");
 const Dog = db.dog;
-
+const UserDog = db.userDog;
 
 exports.addDogIfNotExists = (req, res) => {
   Dog.findOne({
@@ -19,8 +19,17 @@ exports.addDogIfNotExists = (req, res) => {
         weight: req.body.weight,
         neutered: req.body.neutered,
       })
-        .then(() => {
-          res.send({ message: "Dog registered successfully!" });
+        .then(dog => {
+          UserDog.create({
+            dogPetId: dog.dataValues.dogId,
+            ownerId: req.id,
+          })
+            .then(() => {
+              res.send({ message: "Dog created and added to" });
+            })
+            .catch(err => {
+              res.status(500).send({ message: err.message });
+            });
         })
         .catch(err => {
           res.status(500).send({ message: err.message });

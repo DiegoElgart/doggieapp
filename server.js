@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3600",
+  origin: "http://localhost:3000",
 };
 
 // starting the db
@@ -14,7 +14,7 @@ const db = require("./models");
 const Role = db.role;
 
 db.sequelize.sync().then(() => {
-  console.log("Drop and Resync Db");
+  console.log("Synced Db");
 });
 
 app.use(cors(corsOptions));

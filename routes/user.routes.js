@@ -23,6 +23,7 @@ module.exports = function (app) {
   );
   app.post(
     "/api/user/dog/owner",
+
     authJwt.verifyToken,
     dogUserController.addDogtoUser
   );

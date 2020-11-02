@@ -7,8 +7,8 @@ const bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   User.create({
-    firstName: req.body.first_name,
-    lastName: req.body.last_name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 9),
   })
@@ -42,14 +42,13 @@ exports.signin = (req, res) => {
         });
       }
 
-      let token = jwt.sign({ id: user.user_id }, config.secret);
+      let token = jwt.sign({ id: user.dataValues.userId }, config.secret);
 
       res.status(200).send({
-        id: user.id,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        userId: user.id,
+        firstName: user.first_name,
         email: user.email,
-        accessToken: token,
+        token: token,
       });
     })
     .catch(err => {

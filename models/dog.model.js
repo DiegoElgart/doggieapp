@@ -20,12 +20,12 @@ module.exports = (sequelize, Sequelize) => {
         field: "sex",
       },
       age: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.INTEGER(30),
         allowNull: true,
         field: "age",
       },
       weight: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.INTEGER(30),
         allowNull: true,
         field: "weight",
       },
