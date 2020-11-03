@@ -1,6 +1,7 @@
+const { sequelize } = require("../models");
 const db = require("../models");
+const User = db.user;
 const Dog = db.dog;
-const UserDog = db.userDog;
 
 exports.addDogIfNotExists = (req, res) => {
   Dog.findOne({
@@ -36,4 +37,23 @@ exports.addDogIfNotExists = (req, res) => {
         });
     }
   });
+  ``;
+};
+exports.getDog = async (req, res) => {
+  const dog = Dog.findAll({
+    include: [
+      {
+        model: User,
+        as: "pets",
+        where: { userId: req.id },
+      },
+    ],
+  })
+    .then(dog => {
+      res.send(dog);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+  return dog;
 };

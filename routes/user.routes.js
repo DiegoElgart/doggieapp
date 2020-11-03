@@ -14,7 +14,7 @@ module.exports = function (app) {
 
   app.get("/api/test/all", userController.allAccess);
 
-  app.get("/api/test/user", [authJwt.verifyToken]);
+  app.get("/api/test/user", authJwt.verifyToken);
 
   app.post(
     "/api/user/dog/add",
@@ -27,4 +27,6 @@ module.exports = function (app) {
     authJwt.verifyToken,
     dogUserController.addDogtoUser
   );
+
+  app.get("/api/my-dog", authJwt.verifyToken, dogController.getDog);
 };
