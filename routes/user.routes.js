@@ -29,4 +29,12 @@ module.exports = function (app) {
   );
 
   app.get("/api/my-dog", authJwt.verifyToken, dogController.getDog);
+
+  app.delete(
+    "/api/my-dog/delete/:id",
+    authJwt.verifyToken,
+    dogController.deleteDog
+  );
+
+  app.put("/api/my-dog/edit/:id", authJwt.verifyToken, dogController.editDog);
 };

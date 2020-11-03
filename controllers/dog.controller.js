@@ -57,3 +57,39 @@ exports.getDog = async (req, res) => {
     });
   return dog;
 };
+
+exports.deleteDog = async (req, res) => {
+  const id = req.params.id;
+  Dog.destroy({
+    where: { dogId: id },
+  })
+    .then(dog => {
+      res.send({ message: "Doggie was deleted" });
+    })
+    .catch(err => {
+      res.status(500).send({ meesage: err.meesage });
+    });
+};
+
+exports.editDog = async (req, res) => {
+  const id = req.params.id;
+
+  Dog.update(req.body, {
+    where: { dogId: id },
+    dogName: req.body.dogName,
+    sex: req.body.sex,
+    age: req.body.age,
+    weight: req.body.weight,
+    neutered: req.body.neutered,
+  })
+    .then(dog => {
+      if (dog == 1) {
+        res.send({ message: "Dog updated succesfully" });
+      } else {
+        res.send({ message: "Cannot update Doggie" });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.meesage });
+    });
+};
