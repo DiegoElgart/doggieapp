@@ -37,4 +37,6 @@ module.exports = function (app) {
   );
 
   app.put("/api/my-dog/edit/:id", authJwt.verifyToken, dogController.editDog);
+
+  app.get("/api/my-dog/:id", authJwt.verifyToken, dogController.getDogById);
 };

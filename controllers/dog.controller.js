@@ -2,6 +2,7 @@ const { sequelize } = require("../models");
 const db = require("../models");
 const User = db.user;
 const Dog = db.dog;
+const UserDog = db.userDog;
 
 exports.addDogIfNotExists = (req, res) => {
   Dog.findOne({
@@ -40,7 +41,7 @@ exports.addDogIfNotExists = (req, res) => {
   ``;
 };
 exports.getDog = async (req, res) => {
-  const dog = Dog.findAll({
+  const dog = await Dog.findAll({
     include: [
       {
         model: User,
@@ -58,7 +59,7 @@ exports.getDog = async (req, res) => {
   return dog;
 };
 
-exports.deleteDog = async (req, res) => {
+exports.deleteDog = (req, res) => {
   const id = req.params.id;
   Dog.destroy({
     where: { dogId: id },
@@ -73,7 +74,7 @@ exports.deleteDog = async (req, res) => {
 
 exports.editDog = async (req, res) => {
   const id = req.params.id;
-
+  // await Dog.findOne({ where: { dogId: id } }).then(() => {
   Dog.update(req.body, {
     where: { dogId: id },
     dogName: req.body.dogName,
@@ -92,4 +93,17 @@ exports.editDog = async (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.meesage });
     });
+  // });
+};
+exports.getDogById = async (req, res) => {
+  const dog = await Dog.findAll({
+    where: { dogId: req.params.id },
+  })
+    .then(dog => {
+      res.send(dog);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+  return dog;
 };
