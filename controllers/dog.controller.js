@@ -38,7 +38,7 @@ exports.addDogIfNotExists = (req, res) => {
         });
     }
   });
-  ``;
+  ;
 };
 exports.getDog = async (req, res) => {
   const dog = await Dog.findAll({
