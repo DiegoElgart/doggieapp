@@ -16,10 +16,10 @@ exports.addDogIfNotExists = (req, res) => {
     } else {
       Dog.create({
         dogName: req.body.dogName,
-        sex: req.body.sex,
+        sex: req.body.Sex.value,
         age: req.body.age,
         weight: req.body.weight,
-        neutered: req.body.neutered,
+        neutered: req.body.neutered.value,
       })
         .then(dog => {
           UserDog.create({
@@ -38,7 +38,6 @@ exports.addDogIfNotExists = (req, res) => {
         });
     }
   });
-  ;
 };
 exports.getDog = async (req, res) => {
   const dog = await Dog.findAll({
@@ -75,14 +74,18 @@ exports.deleteDog = (req, res) => {
 exports.editDog = async (req, res) => {
   const id = req.params.id;
   // await Dog.findOne({ where: { dogId: id } }).then(() => {
-  Dog.update(req.body, {
-    where: { dogId: id },
-    dogName: req.body.dogName,
-    sex: req.body.sex,
-    age: req.body.age,
-    weight: req.body.weight,
-    neutered: req.body.neutered,
-  })
+  Dog.update(
+    {
+      dogName: req.body.dogName,
+      sex: req.body.Sex.value,
+      age: req.body.age,
+      weight: req.body.weight,
+      neutered: req.body.neutered.value,
+    },
+    {
+      where: { dogId: id },
+    }
+  )
     .then(dog => {
       if (dog == 1) {
         res.send({ message: "Dog updated succesfully" });
