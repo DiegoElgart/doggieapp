@@ -12,10 +12,6 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/test/all", userController.allAccess);
-
-  app.get("/api/test/user", authJwt.verifyToken);
-
   app.post(
     "/api/user/dog/add",
     authJwt.verifyToken,
@@ -39,4 +35,6 @@ module.exports = function (app) {
   app.put("/api/my-dog/edit/:id", authJwt.verifyToken, dogController.editDog);
 
   app.get("/api/my-dog/:id", authJwt.verifyToken, dogController.getDogById);
+
+  app.get("/api/user/:id", authJwt.verifyToken, userController.getUserName);
 };

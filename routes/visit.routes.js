@@ -10,5 +10,7 @@ module.exports = function (app) {
     next();
   });
   app.post("/api/visit/add", authJwt.verifyToken, visitController.newVisit);
-  app.get("/api/visit/all", authJwt.verifyToken, visitController.allVisits);
+  app.get("/api/visit/all/:id", authJwt.verifyToken, visitController.allVisits);
+
+  app.get("/api/visit/groupbyhour/:id", visitController.visitsGroupByHour);
 };
