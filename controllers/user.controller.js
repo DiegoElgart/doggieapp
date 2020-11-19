@@ -10,7 +10,7 @@ exports.getUserName = (req, res) => {
     where: { userId: req.params.id },
   })
     .then(user => {
-      res.send(user);
+      res.send(user.firstName);
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
