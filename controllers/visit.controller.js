@@ -2,10 +2,12 @@ const db = require("../models");
 const Visit = db.visit;
 
 exports.newVisit = (req, res) => {
+  const startAt = req.body.day + "T" + req.body.startAt + ":00.000Z";
+  const endAt = req.body.day + "T" + req.body.endAt + ":00.000Z";
   Visit.findOne({
     where: {
-      guestId: req.body.guestId,
-      startAt: req.body.startAt,
+      guestId: req.body.dogId,
+      startAt: startAt,
     },
   }).then(visit => {
     if (visit) {
@@ -15,9 +17,9 @@ exports.newVisit = (req, res) => {
     } else {
       Visit.create({
         parkId: req.body.parkId,
-        guestId: req.body.guestId,
-        startAt: req.body.startAt,
-        endAt: req.body.endAt,
+        guestId: req.body.dogId,
+        startAt: startAt,
+        endAt: endAt,
       })
         .then(() => {
           res.send({ message: "Visit Scheduled succesfully!" });
