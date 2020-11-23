@@ -37,4 +37,6 @@ module.exports = function (app) {
   app.get("/api/my-dog/:id", authJwt.verifyToken, dogController.getDogById);
 
   app.get("/api/user/:id", authJwt.verifyToken, userController.getUserName);
+
+  app.get("/api/dog/all", dogController.getAllDogs);
 };

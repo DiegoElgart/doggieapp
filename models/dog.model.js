@@ -13,6 +13,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(255),
         allowNull: true,
         field: "dog_name",
+        validate: {
+          min: 2,
+          max: 255,
+        },
       },
       sex: {
         type: Sequelize.INTEGER(1),

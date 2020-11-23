@@ -110,3 +110,13 @@ exports.getDogById = async (req, res) => {
     });
   return dog;
 };
+
+exports.getAllDogs = async (req, res) => {
+  const dogs = await Dog.findAll()
+    .then(dogs => {
+      res.send(dogs);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
